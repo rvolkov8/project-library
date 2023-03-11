@@ -12,6 +12,10 @@ body {
   font-size: 16px;
 }
 
+.body {
+  position: relative;
+}
+
 .container {
   height: 100%;
   display: flex;
@@ -55,6 +59,116 @@ body {
   border-radius: 9px;
 
   background-color: #bab9b9;
+
+  cursor: pointer;
+}
+
+/* Form styling */
+
+form.active {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+
+  background-color: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  background: #f0f0f0;
+  min-height: fit-content;
+  min-height: fit-content;
+
+  padding: 25px;
+  border-radius: 9px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-header {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.form-container > input {
+  display: block;
+  background-color: #f8fafc;
+  border: none;
+
+  font-size: 1.3rem;
+  padding: 10px 15px;
+  border-radius: 9px;
+}
+
+.form-container > input:focus {
+  outline: 1px solid #475569;
+}
+
+.read-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.read-section > label {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Checkbox styling  */
+
+input[type="checkbox"] {
+  appearance: none;
+  margin: 0;
+
+  font: inherit;
+  background-color: #ffffff;
+  width: 14px;
+  height: 14px;
+  border: 1px solid #475569;
+  border-radius: 0.15em;
+
+  display: grid;
+  place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  background-color: #475569;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--form-control-color);
+
+  transform-origin: bottom left;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+/* Button styling */
+
+.form-container > button {
+  background-color: #a3e635;
+  border: none;
+  border-radius: 9px;
+  padding: 15px 0;
+
+  font-weight: 700;
+  font-size: 1.1rem;
 
   cursor: pointer;
 }
