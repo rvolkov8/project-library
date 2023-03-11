@@ -1,3 +1,4 @@
+const bookForm = document.querySelector('.book-form');
 const form = document.querySelector('form');
 
 const addBookButton = document.querySelector('.add-book-button');
@@ -30,14 +31,14 @@ function addBookToLibrary(title, author, pagesNum, isRead) {
 // Changes the form status
 function changeFormStatus() {
   form.reset();
-  if (form.classList.contains('active')) {
-    form.classList.remove('active');
+  if (bookForm.style.display === 'none') {
+    bookForm.style.display = 'block';
   } else {
-    form.classList.add('active');
+    bookForm.style.display = 'none';
   }
 }
 
-// Call the form for book adding
+// Calls the form for book adding
 addBookButton.addEventListener('click', () => {
   changeFormStatus();
 });
