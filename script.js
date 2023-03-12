@@ -59,6 +59,10 @@ function showBooks() {
     bookPagesEl.classList.add('book-page-number');
     infoContainerEl.appendChild(bookPagesEl);
 
+    const buttonContainerEl = document.createElement('div');
+    buttonContainerEl.classList.add('button-container');
+    infoContainerEl.appendChild(buttonContainerEl);
+
     const readButtonEl = document.createElement('button');
     if (bookIsRead) {
       readButtonEl.textContent = 'Read';
@@ -67,12 +71,12 @@ function showBooks() {
       readButtonEl.textContent = 'Not read';
       readButtonEl.classList.add('book-not-read');
     }
-    infoContainerEl.appendChild(readButtonEl);
+    buttonContainerEl.appendChild(readButtonEl);
 
     const removeButtonEl = document.createElement('button');
     removeButtonEl.textContent = 'Remove';
     removeButtonEl.classList.add('remove-button');
-    infoContainerEl.appendChild(removeButtonEl);
+    buttonContainerEl.appendChild(removeButtonEl);
   }
 }
 
