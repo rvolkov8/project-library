@@ -79,6 +79,19 @@ function showBooks() {
       readButtonEl.textContent = 'Not read';
       readButtonEl.classList.add('book-not-read');
     }
+    readButtonEl.addEventListener('click', () => {
+      if (readButtonEl.classList.contains('book-is-read')) {
+        readButtonEl.classList.remove('book-is-read');
+        readButtonEl.classList.add('book-not-read');
+        readButtonEl.textContent = 'Not read';
+        book.isRead = false;
+      } else {
+        readButtonEl.classList.remove('book-not-read');
+        readButtonEl.classList.add('book-is-read');
+        readButtonEl.textContent = 'Read';
+        book.isRead = true;
+      }
+    });
     buttonContainerEl.appendChild(readButtonEl);
 
     const removeButtonEl = document.createElement('button');
