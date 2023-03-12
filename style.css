@@ -203,7 +203,9 @@ input[type="checkbox"]:checked::before {
 .info-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+
+  white-space: pre-line;
+  word-wrap: break-word;
 }
 
 .book-title {
@@ -219,8 +221,9 @@ input[type="checkbox"]:checked::before {
   margin-bottom: 10px;
 }
 
-.info-container button:first-of-type,
-.info-container button:last-of-type {
+button.book-is-read,
+button.book-not-read,
+button.remove-button {
   font-weight: 700;
   font-weight: 1.3rem;
   padding: 10px 0;
@@ -228,11 +231,16 @@ input[type="checkbox"]:checked::before {
   border-radius: 9px;
 }
 
-.info-container button:first-of-type {
+button.book-is-read {
   background: #a3e635;
   margin: 10px 0;
 }
 
-.info-container button:last-of-type {
+button.book-not-read {
+  background: #ef4444;
+  margin: 10px 0;
+}
+
+button.remove-button {
   background: #d1d5db;
 }
