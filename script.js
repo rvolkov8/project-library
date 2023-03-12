@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 const bookForm = document.querySelector('.book-form');
 const form = document.querySelector('form');
 
@@ -22,7 +23,14 @@ function Book(title, author, pagesNum, isRead) {
   this.author = author;
   this.pagesNum = pagesNum;
   this.isRead = isRead;
+  this.bookNumber = 0;
 }
+
+Book.prototype.getNumber = function () {
+  return this.bookNumber;
+};
+
+// Removes the book from the library
 
 // Loops through the myLibrary array and displays each book on the page
 function showBooks() {
@@ -76,6 +84,14 @@ function showBooks() {
     const removeButtonEl = document.createElement('button');
     removeButtonEl.textContent = 'Remove';
     removeButtonEl.classList.add('remove-button');
+    removeButtonEl.addEventListener('click', () => {
+      for (let j = 0; j < myLibrary.length; j++) {
+        myLibrary[j].bookNumber = j;
+      }
+      const bookNum = book.getNumber();
+      myLibrary.splice(bookNum, 1);
+      showBooks();
+    });
     buttonContainerEl.appendChild(removeButtonEl);
   }
 }
@@ -100,7 +116,7 @@ addBookButton.addEventListener('click', () => {
   changeFormStatus();
 });
 
-// Collects user's input about the book and passes it into the library array
+// Collects user's input about the book, passes it into the library array, and displays the books
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   lastTitle = titleInput.value;

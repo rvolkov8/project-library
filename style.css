@@ -238,6 +238,8 @@ button.remove-button {
   padding: 10px 0;
   border: none;
   border-radius: 9px;
+
+  cursor: pointer;
 }
 
 button.book-is-read {
