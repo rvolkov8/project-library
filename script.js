@@ -8,6 +8,7 @@ const titleInput = document.querySelector('.form-title');
 const authorInput = document.querySelector('.form-author');
 const pagesInput = document.querySelector('.form-page-number');
 const isReadCheckbox = document.querySelector('#read');
+const closeForm = document.querySelector('.close');
 
 const bookCardsSection = document.querySelector('.book-cards-section');
 
@@ -143,4 +144,9 @@ form.addEventListener('submit', (e) => {
   addBookToLibrary(lastTitle, lastAuthor, lastPagesNum, lastIsRead);
   changeFormStatus();
   showBooks();
+});
+
+// Closes form when clicked
+closeForm.addEventListener('click', () => {
+  bookForm.style.display = 'none';
 });

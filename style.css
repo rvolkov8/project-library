@@ -89,6 +89,7 @@ form {
 }
 
 .form-container {
+  position: relative;
   background: #f9fafb;
   min-height: fit-content;
   min-height: fit-content;
@@ -99,6 +100,21 @@ form {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+button.close {
+  /* Quit form button styling */
+  font-weight: 700;
+  position: absolute;
+  padding: 2px 5px;
+  right: 10px;
+  top: 10px;
+
+  background: #d1d5db;
+
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 .form-header {
@@ -169,7 +185,7 @@ input[type="checkbox"]:checked::before {
 
 /* Button styling */
 
-.form-container > button {
+button.submit {
   background-color: #a3e635;
   border: none;
   border-radius: 9px;
