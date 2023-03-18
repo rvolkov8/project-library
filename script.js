@@ -1,4 +1,5 @@
 /* eslint-disable no-plusplus */
+// eslint-disable-next-line max-classes-per-file
 const bookForm = document.querySelector('.book-form');
 const form = document.querySelector('form');
 
@@ -12,108 +13,101 @@ const closeForm = document.querySelector('.close');
 
 const bookCardsSection = document.querySelector('.book-cards-section');
 
-let lastTitle;
-let lastAuthor;
-let lastPagesNum;
-let lastIsRead;
-const myLibrary = [];
+// Book object class
+class Book {
+  constructor(title, author, pagesNum, isRead) {
+    this.title = title;
+    this.author = author;
+    this.pagesNum = pagesNum;
+    this.isRead = isRead;
+    this.bookNumber = 0;
+  }
 
-// Book object constructor
-function Book(title, author, pagesNum, isRead) {
-  this.title = title;
-  this.author = author;
-  this.pagesNum = pagesNum;
-  this.isRead = isRead;
-  this.bookNumber = 0;
-}
-
-Book.prototype.getNumber = function () {
-  return this.bookNumber;
-};
-
-// Removes the book from the library
-
-// Loops through the myLibrary array and displays each book on the page
-function showBooks() {
-  bookCardsSection.innerHTML = '';
-  // eslint-disable-next-line no-plusplus
-  for (let i = 0; i < myLibrary.length; i++) {
-    const book = myLibrary[i];
-
-    const bookTitle = book.title;
-    const bookAuthor = book.author;
-    const bookPages = book.pagesNum;
-    const bookIsRead = book.isRead;
-
-    const bookCardEl = document.createElement('div');
-    bookCardEl.classList.add('book-card');
-    bookCardsSection.appendChild(bookCardEl);
-
-    const infoContainerEl = document.createElement('div');
-    infoContainerEl.classList.add('info-container');
-    bookCardEl.appendChild(infoContainerEl);
-
-    const bookTitleEl = document.createElement('div');
-    bookTitleEl.textContent = `${bookTitle}`;
-    bookTitleEl.classList.add('book-title');
-    infoContainerEl.appendChild(bookTitleEl);
-
-    const bookAuthorEl = document.createElement('div');
-    bookAuthorEl.textContent = `by ${bookAuthor}`;
-    bookAuthorEl.classList.add('book-author');
-    infoContainerEl.appendChild(bookAuthorEl);
-
-    const bookPagesEl = document.createElement('div');
-    bookPagesEl.textContent = `${bookPages} pages`;
-    bookPagesEl.classList.add('book-page-number');
-    infoContainerEl.appendChild(bookPagesEl);
-
-    const buttonContainerEl = document.createElement('div');
-    buttonContainerEl.classList.add('button-container');
-    infoContainerEl.appendChild(buttonContainerEl);
-
-    const readButtonEl = document.createElement('button');
-    if (bookIsRead) {
-      readButtonEl.textContent = 'Read';
-      readButtonEl.classList.add('book-is-read');
-    } else {
-      readButtonEl.textContent = 'Not read';
-      readButtonEl.classList.add('book-not-read');
-    }
-    readButtonEl.addEventListener('click', () => {
-      if (readButtonEl.classList.contains('book-is-read')) {
-        readButtonEl.classList.remove('book-is-read');
-        readButtonEl.classList.add('book-not-read');
-        readButtonEl.textContent = 'Not read';
-        book.isRead = false;
-      } else {
-        readButtonEl.classList.remove('book-not-read');
-        readButtonEl.classList.add('book-is-read');
-        readButtonEl.textContent = 'Read';
-        book.isRead = true;
-      }
-    });
-    buttonContainerEl.appendChild(readButtonEl);
-
-    const removeButtonEl = document.createElement('button');
-    removeButtonEl.textContent = 'Remove';
-    removeButtonEl.classList.add('remove-button');
-    removeButtonEl.addEventListener('click', () => {
-      for (let j = 0; j < myLibrary.length; j++) {
-        myLibrary[j].bookNumber = j;
-      }
-      const bookNum = book.getNumber();
-      myLibrary.splice(bookNum, 1);
-      showBooks();
-    });
-    buttonContainerEl.appendChild(removeButtonEl);
+  getNumber() {
+    return this.bookNumber;
   }
 }
 
-// Adds new book object to the library array based on the users input
-function addBookToLibrary(title, author, pagesNum, isRead) {
-  myLibrary.push(new Book(title, author, pagesNum, isRead));
+class Library {
+  constructor() {
+    this.books = [];
+  }
+
+  addBook(title, author, pagesNum, isRead) {
+    const newBook = new Book(title, author, pagesNum, isRead);
+    this.books.push(newBook);
+  }
+
+  removeBook(book) {
+    const bookIndex = this.books.indexOf(book);
+    if (bookIndex > -1) {
+      this.books.splice(bookIndex, 1);
+    }
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  toogleReadStatus(book) {
+    // eslint-disable-next-line no-param-reassign
+    book.isRead = !book.isRead;
+  }
+
+  displayBooks() {
+    bookCardsSection.innerHTML = '';
+    this.books.forEach((book) => {
+      const bookCardEl = document.createElement('div');
+      bookCardEl.classList.add('book-card');
+      bookCardsSection.appendChild(bookCardEl);
+
+      const infoContainerEl = document.createElement('div');
+      infoContainerEl.classList.add('info-container');
+      bookCardEl.appendChild(infoContainerEl);
+
+      const bookTitleEl = document.createElement('div');
+      bookTitleEl.textContent = `${book.title}`;
+      bookTitleEl.classList.add('book-title');
+      infoContainerEl.appendChild(bookTitleEl);
+
+      const bookAuthorEl = document.createElement('div');
+      bookAuthorEl.textContent = `by ${book.author}`;
+      bookAuthorEl.classList.add('book-author');
+      infoContainerEl.appendChild(bookAuthorEl);
+
+      const bookPagesEl = document.createElement('div');
+      bookPagesEl.textContent = `${book.pagesNum} pages`;
+      bookPagesEl.classList.add('book-page-number');
+      infoContainerEl.appendChild(bookPagesEl);
+
+      const buttonContainerEl = document.createElement('div');
+      buttonContainerEl.classList.add('button-container');
+      infoContainerEl.appendChild(buttonContainerEl);
+
+      const readButtonEl = document.createElement('button');
+      if (book.isRead) {
+        readButtonEl.textContent = 'Read';
+        readButtonEl.classList.add('book-is-read');
+      } else {
+        readButtonEl.textContent = 'Not read';
+        readButtonEl.classList.add('book-not-read');
+      }
+      readButtonEl.addEventListener('click', () => {
+        this.toogleReadStatus(book);
+        this.displayBooks();
+      });
+      buttonContainerEl.appendChild(readButtonEl);
+
+      const removeButtonEl = document.createElement('button');
+      removeButtonEl.textContent = 'Remove';
+      removeButtonEl.classList.add('remove-button');
+      removeButtonEl.addEventListener('click', () => {
+        this.removeBook(book);
+        this.displayBooks();
+      });
+      buttonContainerEl.appendChild(removeButtonEl);
+    });
+  }
 }
+
+const myLibrary = new Library();
 
 // Changes the form status
 function changeFormStatus() {
@@ -130,20 +124,24 @@ addBookButton.addEventListener('click', () => {
   changeFormStatus();
 });
 
-// Collects user's input about the book, passes it into the library array, and displays the books
+// Collects user's input about the book, creates a new book object,
+// passes it into the library array, and displays the books
 form.addEventListener('submit', (e) => {
   e.preventDefault();
-  lastTitle = titleInput.value;
-  lastAuthor = authorInput.value;
-  lastPagesNum = pagesInput.value;
-  if (isReadCheckbox.checked) {
-    lastIsRead = true;
-  } else {
-    lastIsRead = false;
-  }
-  addBookToLibrary(lastTitle, lastAuthor, lastPagesNum, lastIsRead);
+  const checkIsRead = () => {
+    if (isReadCheckbox.checked) {
+      return true;
+    }
+    return false;
+  };
+  myLibrary.addBook(
+    titleInput.value,
+    authorInput.value,
+    pagesInput.value,
+    checkIsRead()
+  );
   changeFormStatus();
-  showBooks();
+  myLibrary.displayBooks();
 });
 
 // Closes form when clicked
