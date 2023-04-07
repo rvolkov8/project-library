@@ -1,4 +1,3 @@
-/* eslint-disable no-plusplus */
 // eslint-disable-next-line max-classes-per-file
 const bookForm = document.querySelector('.book-form');
 const form = document.querySelector('form');
@@ -8,6 +7,11 @@ const addBookButton = document.querySelector('.add-book-button');
 const titleInput = document.querySelector('.form-title');
 const authorInput = document.querySelector('.form-author');
 const pagesInput = document.querySelector('.form-page-number');
+
+titleInput.setCustomValidity('You need to enter a book title here.');
+authorInput.setCustomValidity('You need to enter a book author here.');
+pagesInput.setCustomValidity('You need to enter a number of pages here.');
+
 const isReadCheckbox = document.querySelector('#read');
 const closeForm = document.querySelector('.close');
 
@@ -46,7 +50,7 @@ class Library {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  toogleReadStatus(book) {
+  toggleReadStatus(book) {
     // eslint-disable-next-line no-param-reassign
     book.isRead = !book.isRead;
   }
@@ -63,7 +67,7 @@ class Library {
       bookCardEl.appendChild(infoContainerEl);
 
       const bookTitleEl = document.createElement('div');
-      bookTitleEl.textContent = `${book.title}`;
+      bookTitleEl.textContent = `"${book.title}"`;
       bookTitleEl.classList.add('book-title');
       infoContainerEl.appendChild(bookTitleEl);
 
@@ -90,7 +94,7 @@ class Library {
         readButtonEl.classList.add('book-not-read');
       }
       readButtonEl.addEventListener('click', () => {
-        this.toogleReadStatus(book);
+        this.toggleReadStatus(book);
         this.displayBooks();
       });
       buttonContainerEl.appendChild(readButtonEl);
@@ -118,6 +122,35 @@ function changeFormStatus() {
     bookForm.style.display = 'none';
   }
 }
+
+// Checks validity of the user input while typing
+titleInput.addEventListener('input', () => {
+  if (titleInput.validity.valueMissing) {
+    titleInput.classList.add('error');
+  } else {
+    titleInput.classList.remove('error');
+    titleInput.setCustomValidity('');
+  }
+});
+
+authorInput.addEventListener('input', () => {
+  if (authorInput.validity.valueMissing) {
+    authorInput.classList.add('error');
+  } else {
+    authorInput.classList.remove('error');
+    authorInput.setCustomValidity('');
+  }
+});
+
+pagesInput.addEventListener('input', () => {
+  if (pagesInput.validity.valueMissing) {
+    pagesInput.classList.add('error');
+    pagesInput.setCustomValidity('You need to enter a number of pages here.');
+  } else {
+    pagesInput.classList.remove('error');
+    pagesInput.setCustomValidity('');
+  }
+});
 
 // Calls the form for book adding
 addBookButton.addEventListener('click', () => {

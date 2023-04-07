@@ -149,6 +149,18 @@ button.close {
   font-weight: 500;
 }
 
+.form-title:valid,
+.form-author:valid,
+.form-page-number:valid {
+  outline: 1px solid #a3e635;
+  background-color: #f7fee7;
+}
+
+.error {
+  outline: 1px solid #ef4444;
+  background-color: #ef4444;
+}
+
 /* Checkbox styling  */
 
 input[type="checkbox"] {
